@@ -1,7 +1,7 @@
 package config
 
 import (
-	"../models"
+	"github.com/adityazxzxz/user_service/models"
 	"github.com/jinzhu/gorm"
 )
 

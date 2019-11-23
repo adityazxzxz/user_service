@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"net/http"
-	"../models"
+	"github.com/adityazxzxz/user_service/models"
 	"github.com/gin-gonic/gin"
 )
 

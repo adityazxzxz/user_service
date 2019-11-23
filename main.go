@@ -1,7 +1,7 @@
 package main
 import (
-	"./config"
-	"controllers"
+	"github.com/adityazxzxz/user_service/config"
+	"github.com/adityazxzxz/user_service/controllers"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 )
