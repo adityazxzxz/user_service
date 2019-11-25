@@ -6,9 +6,9 @@ import (
 )
 
 func DBInit() *gorm.DB{
-	db, err := gorm.Open("mysql","root:@tcp(1270.0.0.1:3306)/godb?charset=utf&parseTimeTrue&loc=Local")
+	db, err := gorm.Open("mysql","root:@tcp(127.0.0.1:3306)/godb?charset=utf8&parseTimeTrue&loc=Local")
 	if err != nil{
-		panic("failedto connect to database")
+		panic("failed to connect to database")
 	}
 
 	db.AutoMigrate(models.Users{})

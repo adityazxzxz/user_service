@@ -8,7 +8,7 @@ import (
 
 func main(){
 	db := config.DBInit()
-	inDB := &controllers.InDB{DB:db}
+	InDB := &controllers.InDB{DB:db}
 
 	router := gin.Default()
 

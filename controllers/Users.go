@@ -8,7 +8,7 @@ import (
 
 func(idb *InDB) GetUser(c *gin.Context){
 	var(
-		user structs.Users
+		user models.Users
 		result gin.H
 	)
 	id := c.Param("id")
@@ -16,11 +16,11 @@ func(idb *InDB) GetUser(c *gin.Context){
 	if err != nil{
 		result = gin.H{
 			"result":err.Error(),
-			"count":0
+			"count":0,
 		}
 	}else{
 		result = gin.H{
-			"result":person,
+			"result":user,
 			"count":1,
 		}
 	}
@@ -28,9 +28,9 @@ func(idb *InDB) GetUser(c *gin.Context){
 	c.JSON(http.StatusOK,result)
 }
 
-func(idb *InDB) GetUsers(c *.gin.Context){
+func(idb *InDB) GetUsers(c *gin.Context){
 	var (
-		users []structs.Users
+		users []models.Users
 		result gin.H
 	)
 
@@ -52,12 +52,12 @@ func(idb *InDB) GetUsers(c *.gin.Context){
 
 func (idb *InDB) CreateUser(c *gin.Context){
 	var (
-		user structs.Users
+		user models.Users
 		result gin.H
 	)
 
 	first_name := c.PostForm("first_name")
-	last_name := c.PostFomr("last_name")
+	last_name := c.PostForm("last_name")
 	user.First_name = first_name
 	user.Last_name = last_name
 	idb.DB.Create(&user)
@@ -65,4 +65,40 @@ func (idb *InDB) CreateUser(c *gin.Context){
 		"result":user,
 	}
 	c.JSON(http.StatusOK,result)
+}
+
+func (idb *InDB) UpdateUser(c *gin.Context){
+	var (
+		user models.Users
+		result gin.H
+	)
+	id := c.Param("id")
+	first_name := c.PostForm("first_name")
+	last_name := c.PostForm("last_name")
+
+	
+	err := idb.DB.First(&user, id).Error
+	if err != nil {
+		result = gin.H{
+			"result":"data not found"
+		}
+	}
+
+	user.First_name = first_name
+	user.Last_name = last_name
+	err = idb.DB.Model(&user).Updates(user).Error
+
+	if err != nil{
+		result = gin.H{
+			"result" : "update failed"
+		}
+	}else{
+		result = gin.H{
+			"result" : "Successfully updated"
+		}
+	}
+
+	c.JSON(http.StatusOK,result)
+	
+
 }
